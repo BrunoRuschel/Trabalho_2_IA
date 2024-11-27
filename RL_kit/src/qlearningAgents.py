@@ -126,9 +126,20 @@ class QLearningAgent(ReinforcementAgent):
         """
         # Pick Action
         legalActions = self.getLegalActions(state)
-        action = None
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+
+        # se não há ações válidas, retorna None
+        if not legalActions:
+            return None
+        
+        choice = util.flipCoin(self.epsilon)
+
+        # probabilidade epsilon de realizar uma ação aleatória
+        if choice:
+            action = random.choice(legalActions)
+
+        # probabilidade 1-epsilon de realizar a melhor ação
+        else:
+            action = self.computeActionFromQValues(state)
 
         return action
 
@@ -227,4 +238,3 @@ class ApproximateQAgent(PacmanQAgent):
             # you might want to print your weights here for debugging
             "*** YOUR CODE HERE ***"
             pass
-
